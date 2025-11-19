@@ -1,129 +1,293 @@
-# Event Ticketing Admin Frontend
+# Event Ticketing System - Frontend
 
-A Next.js 14 application with TypeScript and Tailwind CSS for managing events and ticketing requests.
+Next.js-based frontend application for the Event Ticketing System with QR code generation and ticket management.
 
-## Features
+## 📋 Overview
 
-### Phase 1 - Admin Role (Implemented)
+This is the frontend application built with Next.js 14, TypeScript, and Tailwind CSS. It provides separate interfaces for members and administrators to manage event tickets.
 
-- **Authentication**: Login and registration with role selection
-- **Admin Dashboard**: System-wide metrics and recent activity
-- **Event Management**: Full CRUD operations for events
-- **Ticketing Management**: View, edit, and delete all ticketing requests
-- **Public Event Viewing**: Anyone can view events without authentication
-- **Role-Based Access Control**: Admin-only routes protected
+## 🛠️ Tech Stack
 
-### Phase 2 - Member Role (Placeholder)
+- **Framework:** Next.js 14 (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **QR Code Generation:** qrcode.react
+- **QR Code Scanning:** jsQR
+- **Icons:** Lucide React
+- **HTTP Client:** Fetch API with custom wrapper
 
-- Member dashboard (coming soon)
-- Browse and view events (coming soon)
-- Create ticketing requests (coming soon)
-- Manage own ticketing requests (coming soon)
+## 📖 Documentation
 
-## Technology Stack
+### **[📊 UI Flow Design](../ui_flow_design.md)**
 
-- **Framework**: Next.js 14 (App Router)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **State Management**: React Context API
-- **HTTP Client**: Fetch API with custom wrapper
-- **Icons**: Lucide React
+View comprehensive UI flow documentation with interactive Mermaid diagrams showing:
+- Complete user journey flows
+- Member and admin workflows
+- System architecture
+- QR code workflow
+- Page structure and navigation
 
-## Getting Started
+**Click the link above to see detailed UI flows!**
+
+## 🚀 Getting Started
 
 ### Prerequisites
-
-- Node.js 18+ and npm
-- Backend API running on `http://localhost:5000` (or configure `NEXT_PUBLIC_API_URL`)
+- Node.js (v16 or higher)
+- npm or yarn
+- Backend API running on port 5004
 
 ### Installation
 
-1. Install dependencies:
 ```bash
+# Install dependencies
 npm install
-```
 
-2. Create `.env.local` file (or copy from `.env.example`):
-```bash
-NEXT_PUBLIC_API_URL=http://localhost:5000/api/v1
-NEXT_PUBLIC_APP_NAME=EventTicketer Admin
-NEXT_PUBLIC_APP_VERSION=1.0.0
-```
-
-3. Run the development server:
-```bash
+# Run development server
 npm run dev
-```
 
-4. Open [http://localhost:3000](http://localhost:3000) in your browser.
-
-## Project Structure
-
-```
-src/
-├── app/                    # Next.js App Router pages
-│   ├── (auth)/            # Authentication pages
-│   ├── (admin)/           # Admin pages
-│   ├── (member)/          # Member pages (placeholders)
-│   ├── events/            # Public event pages
-│   └── unauthorized/      # Error pages
-├── components/            # React components
-│   ├── ui/               # Base UI components
-│   ├── layout/           # Layout components
-│   ├── events/           # Event-related components
-│   ├── ticketing/        # Ticketing components
-│   └── dashboard/        # Dashboard components
-├── contexts/             # React contexts
-├── lib/                  # Utilities and API clients
-│   ├── api/             # API service modules
-│   ├── types/           # TypeScript type definitions
-│   └── utils/           # Utility functions
-└── middleware.ts        # Next.js middleware for route protection
-```
-
-## API Integration
-
-The frontend integrates with the existing Event Ticketing System REST API. All API calls are handled through the API client service in `src/lib/api/`.
-
-### Authentication
-
-- JWT tokens are stored in localStorage
-- Tokens are sent as Bearer tokens in Authorization headers
-- Automatic redirect to login on 401 responses
-
-### API Endpoints Used
-
-- `POST /api/v1/auth/register` - User registration
-- `POST /api/v1/auth/login` - User login
-- `GET /api/v1/auth/me` - Get current user
-- `GET /api/v1/auth/logout` - Logout
-- `GET /api/v1/events` - Get all events
-- `GET /api/v1/events/:id` - Get event by ID
-- `POST /api/v1/events` - Create event (admin only)
-- `PUT /api/v1/events/:id` - Update event (admin only)
-- `DELETE /api/v1/events/:id` - Delete event (admin only)
-- `GET /api/v1/ticketing` - Get ticketing requests
-- `GET /api/v1/ticketing/:id` - Get ticketing request by ID
-- `PUT /api/v1/ticketing/:id` - Update ticketing request
-- `DELETE /api/v1/ticketing/:id` - Delete ticketing request
-
-## Building for Production
-
-```bash
+# Build for production
 npm run build
+
+# Start production server
 npm start
 ```
 
-## Environment Variables
+### Environment Variables
 
-- `NEXT_PUBLIC_API_URL` - Backend API base URL (default: http://localhost:5000/api/v1)
-- `NEXT_PUBLIC_APP_NAME` - Application name
-- `NEXT_PUBLIC_APP_VERSION` - Application version
+Create a `.env.local` file (optional):
+```env
+NEXT_PUBLIC_API_URL=http://localhost:5004/api/v1
+```
 
-## Notes
+The API URL defaults to `http://localhost:5004/api/v1` if not specified.
 
-- The backend API must be running and accessible
-- CORS must be configured on the backend to allow requests from the frontend
-- All styling uses Tailwind CSS utility classes (no separate CSS files)
-- Member role features are prepared but not implemented (Phase 2)
+## 📁 Project Structure
 
+```
+frontend/
+├── src/
+│   ├── app/                    # Next.js App Router pages
+│   │   ├── (admin)/           # Admin routes (protected)
+│   │   │   └── admin/
+│   │   │       ├── dashboard/ # Admin dashboard
+│   │   │       ├── events/    # Event management
+│   │   │       ├── ticketing/ # Ticketing management
+│   │   │       └── scanner/   # QR scanner
+│   │   ├── (member)/          # Member routes (protected)
+│   │   │   └── member/
+│   │   │       ├── dashboard/ # Member dashboard
+│   │   │       ├── events/    # Browse events
+│   │   │       └── my-tickets/# My tickets
+│   │   ├── login/             # Login page
+│   │   ├── register/          # Registration page
+│   │   ├── layout.tsx         # Root layout
+│   │   └── globals.css        # Global styles
+│   │
+│   ├── components/            # React components
+│   │   ├── auth/             # Authentication components
+│   │   ├── dashboard/        # Dashboard components
+│   │   ├── events/           # Event components
+│   │   ├── layout/           # Layout components
+│   │   ├── ticketing/        # Ticketing components
+│   │   └── ui/               # Reusable UI components
+│   │
+│   ├── contexts/             # React contexts
+│   │   └── AuthContext.tsx  # Authentication context
+│   │
+│   ├── lib/                  # Utilities and libraries
+│   │   ├── api/             # API client functions
+│   │   │   ├── client.ts    # Base API client
+│   │   │   ├── auth.ts      # Auth API
+│   │   │   ├── events.ts    # Events API
+│   │   │   └── ticketing.ts # Ticketing API
+│   │   └── types/           # TypeScript types
+│   │       ├── auth.ts
+│   │       ├── event.ts
+│   │       └── ticketing.ts
+│   │
+│   └── middleware.ts         # Next.js middleware for auth
+│
+├── public/                   # Static files
+├── tailwind.config.ts       # Tailwind configuration
+├── next.config.js           # Next.js configuration
+└── tsconfig.json            # TypeScript configuration
+```
+
+## 🎨 Features
+
+### Member Features
+- ✅ Browse available events
+- ✅ Book tickets (1-5 per event)
+- ✅ View QR codes for tickets
+- ✅ Edit ticket amounts
+- ✅ Cancel bookings
+- ✅ View ticket status (Active/Used)
+
+### Admin Features
+- ✅ Manage events (CRUD operations)
+- ✅ View all ticketing records
+- ✅ Upload QR code images for verification
+- ✅ Manual ticket ID entry
+- ✅ Redeem tickets
+- ✅ Prevent duplicate redemptions
+
+## 🔐 Authentication
+
+The app uses JWT-based authentication with the following flow:
+
+1. User logs in via `/login`
+2. Backend returns JWT token
+3. Token stored in localStorage
+4. AuthContext provides user state
+5. Middleware protects routes
+6. API client includes token in requests
+
+### Protected Routes
+
+- **Member routes:** `/member/*` - Requires authentication
+- **Admin routes:** `/admin/*` - Requires admin role
+
+## 📱 Pages Overview
+
+### Public Pages
+- `/login` - User login
+- `/register` - User registration
+
+### Member Pages
+- `/member/dashboard` - Overview of bookings
+- `/member/events` - Browse and book events
+- `/member/my-tickets` - Manage tickets and view QR codes
+
+### Admin Pages
+- `/admin/dashboard` - Admin overview
+- `/admin/events` - Event management
+- `/admin/ticketing` - View all tickets
+- `/admin/scanner` - QR code verification
+
+## 🎯 Key Components
+
+### QR Code System
+
+**Generation (`my-tickets/page.tsx`):**
+```typescript
+<QRCodeSVG 
+  value={JSON.stringify({
+    id: ticket._id,
+    event: eventName,
+    user: userName,
+    amount: ticketAmount
+  })}
+  size={200}
+  level="H"
+/>
+```
+
+**Scanning (`admin/scanner/page.tsx`):**
+- Upload QR image
+- Extract data using `jsQR`
+- Verify ticket via API
+- Redeem if valid
+
+### API Client
+
+Located in `src/lib/api/`, provides typed functions for:
+- Authentication (`auth.ts`)
+- Events (`events.ts`)
+- Ticketing (`ticketing.ts`)
+
+Example:
+```typescript
+import { ticketingApi } from '@/lib/api/ticketing';
+
+const response = await ticketingApi.create({
+  event: eventId,
+  ticketAmount: 3
+});
+```
+
+## 🎨 Styling
+
+### Tailwind Configuration
+
+Custom color palette defined in `tailwind.config.ts`:
+- **Primary:** Indigo
+- **Secondary:** Slate
+- **Accent colors** for success, error, warning
+
+### Global Styles
+
+`globals.css` includes:
+- Gradient backgrounds
+- Glassmorphism utilities (`.glass`, `.glass-dark`)
+- Hover animations (`.card-hover`)
+
+## 🔧 Development
+
+### Available Scripts
+
+```bash
+# Development server
+npm run dev
+
+# Production build
+npm run build
+
+# Start production server
+npm start
+
+# Lint code
+npm run lint
+```
+
+### Code Style
+
+- TypeScript for type safety
+- Functional components with hooks
+- Client components marked with `'use client'`
+- Consistent naming conventions
+
+## 📦 Dependencies
+
+### Core
+- `next` - React framework
+- `react` & `react-dom` - UI library
+- `typescript` - Type safety
+
+### UI & Styling
+- `tailwindcss` - Utility-first CSS
+- `lucide-react` - Icon library
+
+### QR Code
+- `qrcode.react` - QR code generation
+- `jsqr` - QR code scanning
+
+## 🚀 Deployment
+
+### Build for Production
+
+```bash
+npm run build
+```
+
+### Deploy to Vercel
+
+```bash
+vercel deploy
+```
+
+Or connect your GitHub repository to Vercel for automatic deployments.
+
+### Environment Variables
+
+Set `NEXT_PUBLIC_API_URL` to your production API URL.
+
+## 📝 Notes
+
+- QR codes are generated client-side (no server processing)
+- Images are processed in-browser (not uploaded to server)
+- Authentication state persists in localStorage
+- API calls include JWT token automatically
+
+---
+
+**For detailed UI flows and system architecture, see [UI Flow Design Documentation](../ui_flow_design.md)**

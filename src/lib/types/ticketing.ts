@@ -6,6 +6,7 @@ export interface TicketingRequest {
   user: User | string;
   event: Event | string;
   ticketAmount: number;
+  isUsed?: boolean;
   createdAt: string;
   updatedAt: string;
 }

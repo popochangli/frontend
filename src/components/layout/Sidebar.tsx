@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { LayoutDashboard, Calendar, Ticket, Menu, X } from 'lucide-react';
+import { LayoutDashboard, Calendar, Ticket, Menu, X, ScanLine } from 'lucide-react';
 import { useAuth } from '@/contexts/AuthContext';
 
 interface NavItem {
@@ -18,6 +18,7 @@ const navItems: NavItem[] = [
   { label: 'Dashboard', href: '/admin/dashboard', icon: LayoutDashboard, adminOnly: true },
   { label: 'Events', href: '/admin/events', icon: Calendar, adminOnly: true },
   { label: 'Ticketing', href: '/admin/ticketing', icon: Ticket, adminOnly: true },
+  { label: 'QR Scanner', href: '/admin/scanner', icon: ScanLine, adminOnly: true },
   { label: 'Dashboard', href: '/member/dashboard', icon: LayoutDashboard, memberOnly: true },
   { label: 'Browse Events', href: '/member/events', icon: Calendar, memberOnly: true },
   { label: 'My Tickets', href: '/member/my-tickets', icon: Ticket, memberOnly: true },
@@ -80,8 +81,8 @@ export const Sidebar: React.FC = () => {
                       href={item.href}
                       onClick={() => setIsOpen(false)}
                       className={`flex items-center px-4 py-3.5 rounded-xl transition-all duration-200 group ${active
-                          ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20'
-                          : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
+                        ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20'
+                        : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
                         }`}
                     >
                       <Icon

@@ -22,5 +22,9 @@ export const ticketingApi = {
   delete: (id: string): Promise<ApiResponse<void>> => {
     return apiClient.delete(`/ticketing/${id}`);
   },
+
+  redeem: (id: string): Promise<ApiResponse<TicketingRequest>> => {
+    return apiClient.post(`/ticketing/${id}/redeem`, {});
+  },
 };
 

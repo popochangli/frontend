@@ -11,16 +11,8 @@ export const ticketingApi = {
     return apiClient.get(`/ticketing/${id}`);
   },
 
-  create: async (data: { event: string; ticketAmount: number }): Promise<ApiResponse<TicketingRequest>> => {
-    const response = await apiClient.post<any>('/ticketing', data);
-    // Handle case where backend returns raw object instead of standard response
-    if (response && (response as any)._id) {
-      return {
-        success: true,
-        data: response as any
-      };
-    }
-    return response;
+  create: (data: { event: string; ticketAmount: number }): Promise<ApiResponse<TicketingRequest>> => {
+    return apiClient.post('/ticketing', data);
   },
 
   update: (id: string, ticketAmount: number): Promise<ApiResponse<TicketingRequest>> => {

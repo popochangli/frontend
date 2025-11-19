@@ -5,7 +5,7 @@ class ApiClient {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api/v1';
+    this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5004/api/v1';
   }
 
   private async request<T>(
@@ -36,18 +36,18 @@ class ApiClient {
             errorData = JSON.parse(errorText);
           } catch {
             // If response is not JSON, use status text
-            errorData = { 
+            errorData = {
               message: errorText || response.statusText || 'Request failed',
               error: errorText || response.statusText || 'Request failed'
             };
           }
         } catch (e) {
-          errorData = { 
+          errorData = {
             message: response.statusText || 'Request failed',
             error: response.statusText || 'Request failed'
           };
         }
-        
+
         // Log error for debugging
         if (process.env.NODE_ENV === 'development') {
           console.error('API Error Response:', {
@@ -58,11 +58,11 @@ class ApiClient {
             fullResponse: errorText,
           });
         }
-        
+
         // Handle different error formats
         // If backend only returns {success: false}, try to infer the error
         let errorMessage = errorData.message || errorData.error || errorData.msg;
-        
+
         if (!errorMessage || errorMessage === 'HTTP 400: Bad Request') {
           // Backend didn't provide specific error, infer from common cases
           if (response.status === 400) {
@@ -80,7 +80,7 @@ class ApiClient {
             errorMessage = `HTTP ${response.status}: ${response.statusText}`;
           }
         }
-        
+
         return {
           success: false,
           error: errorMessage,

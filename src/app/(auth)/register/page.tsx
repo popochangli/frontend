@@ -54,6 +54,11 @@ export default function RegisterPage() {
       return;
     }
 
+    if (!/^\d{10}$/.test(formData.tel)) {
+      setError('Telephone number must be exactly 10 digits');
+      return;
+    }
+
     if (!validation.required(formData.password) || !validation.minLength(formData.password, 6)) {
       setError('Password must be at least 6 characters');
       return;
@@ -82,7 +87,7 @@ export default function RegisterPage() {
     } catch (err) {
       console.error('Registration error:', err);
       const errorMessage = err instanceof Error ? err.message : 'Registration failed. Please try again.';
-      
+
       // Check for specific error messages
       if (errorMessage.includes('Network error') || errorMessage.includes('fetch')) {
         setError('Cannot connect to server. Please make sure the backend server is running on port 5004.');
@@ -140,9 +145,12 @@ export default function RegisterPage() {
             label="Telephone"
             type="tel"
             value={formData.tel}
-            onChange={(value) => setFormData({ ...formData, tel: value })}
+            onChange={(value) => {
+              const numericValue = value.replace(/\D/g, '').slice(0, 10);
+              setFormData({ ...formData, tel: numericValue });
+            }}
             required
-            placeholder="Enter your telephone number"
+            placeholder="Enter your telephone number (10 digits)"
           />
 
           <div>

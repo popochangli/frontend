@@ -12,7 +12,7 @@ export const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) =>
   return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar />
-      <div className="lg:pl-64">
+      <div className="lg:pl-72">
         <TopNav />
         <main className="p-4 lg:p-6">{children}</main>
       </div>

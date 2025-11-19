@@ -51,18 +51,25 @@ export const Sidebar: React.FC = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 h-full w-64 bg-gray-900 text-white transform transition-transform duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full'
-          } lg:translate-x-0`}
+        className={`fixed top-0 left-0 h-full w-72 glass-dark text-white transform transition-transform duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0' : '-translate-x-full'
+          } lg:translate-x-0 border-r border-gray-800`}
       >
         <div className="flex flex-col h-full">
-          <div className="p-6 border-b border-gray-800">
-            <h1 className="text-xl font-bold">EventTicketer</h1>
-            <p className="text-sm text-gray-400 mt-1">
-              {user?.role === 'admin' ? 'Admin Panel' : 'Member Panel'}
-            </p>
+          <div className="p-8 border-b border-gray-800/50">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center shadow-lg shadow-primary-500/20">
+                <Ticket size={20} className="text-white" />
+              </div>
+              <div>
+                <h1 className="text-xl font-bold tracking-tight">EventTicketer</h1>
+                <p className="text-xs text-gray-400 font-medium uppercase tracking-wider mt-0.5">
+                  {user?.role === 'admin' ? 'Admin Panel' : 'Member Panel'}
+                </p>
+              </div>
+            </div>
           </div>
 
-          <nav className="flex-1 p-4">
+          <nav className="flex-1 p-6 overflow-y-auto">
             <ul className="space-y-2">
               {filteredNavItems.map((item) => {
                 const Icon = item.icon;
@@ -72,19 +79,35 @@ export const Sidebar: React.FC = () => {
                     <Link
                       href={item.href}
                       onClick={() => setIsOpen(false)}
-                      className={`flex items-center px-4 py-3 rounded-lg transition-colors ${active
-                        ? 'bg-primary-600 text-white'
-                        : 'text-gray-300 hover:bg-gray-800 hover:text-white'
+                      className={`flex items-center px-4 py-3.5 rounded-xl transition-all duration-200 group ${active
+                          ? 'bg-primary-600 text-white shadow-lg shadow-primary-600/20'
+                          : 'text-gray-400 hover:bg-gray-800/50 hover:text-white'
                         }`}
                     >
-                      <Icon size={20} className="mr-3" />
-                      <span>{item.label}</span>
+                      <Icon
+                        size={20}
+                        className={`mr-3 transition-colors ${active ? 'text-white' : 'text-gray-500 group-hover:text-white'
+                          }`}
+                      />
+                      <span className="font-medium">{item.label}</span>
                     </Link>
                   </li>
                 );
               })}
             </ul>
           </nav>
+
+          <div className="p-6 border-t border-gray-800/50">
+            <div className="flex items-center space-x-3 px-4 py-3 rounded-xl bg-gray-800/30">
+              <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-primary-500 to-purple-500 flex items-center justify-center text-xs font-bold">
+                {user?.name?.charAt(0).toUpperCase()}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-white truncate">{user?.name}</p>
+                <p className="text-xs text-gray-500 truncate">{user?.email}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </aside>
 

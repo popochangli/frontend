@@ -18,7 +18,7 @@ This is the frontend application built with Next.js 14, TypeScript, and Tailwind
 
 ## 📖 Documentation
 
-### **[📊 UI Flow Design](./ui_flow_design.md)**
+### **[📊 UI Flow Design](./blob/main/ui_flow_design.md)**
 
 View comprehensive UI flow documentation with interactive Mermaid diagrams showing:
 - Complete user journey flows
@@ -290,4 +290,4 @@ Set `NEXT_PUBLIC_API_URL` to your production API URL.
 
 ---
 
-**For detailed UI flows and system architecture, see [UI Flow Design Documentation](./ui_flow_design.md)**
+**For detailed UI flows and system architecture, see [UI Flow Design Documentation](./blob/main/ui_flow_design.md)**

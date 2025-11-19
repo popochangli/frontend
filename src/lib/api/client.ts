@@ -5,7 +5,7 @@ class ApiClient {
   private baseURL: string;
 
   constructor() {
-    this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5004/api/v1';
+    this.baseURL = process.env.NEXT_PUBLIC_API_URL || 'https://devprac-2-backend.vercel.app/api/v1';
   }
 
   private async request<T>(

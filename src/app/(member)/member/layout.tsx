@@ -1,8 +1,10 @@
+import { DashboardLayout } from '@/components/layout/DashboardLayout';
+
 export default function MemberLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  return <div>{children}</div>;
+  return <DashboardLayout>{children}</DashboardLayout>;
 }
 

@@ -5,11 +5,11 @@ import { ticketingApi } from '@/lib/api/ticketing';
 import { TicketingRequest } from '@/lib/types/ticketing';
 import { Event } from '@/lib/types/event';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
-import { EmptyState } from '@/components/ui/EmptyState';
 import { Button } from '@/components/ui/Button';
 import { Modal } from '@/components/ui/Modal';
 import { Input } from '@/components/ui/Input';
 import Link from 'next/link';
+import { Edit, Trash2 } from 'lucide-react';
 
 export default function MyTicketsPage() {
   const [tickets, setTickets] = useState<TicketingRequest[]>([]);
@@ -128,14 +128,14 @@ export default function MyTicketsPage() {
                         size="sm"
                         onClick={() => handleEditClick(ticket)}
                       >
-                        Edit
+                        <Edit size={14} className="mr-1" />
                       </Button>
                       <Button
                         variant="danger"
                         size="sm"
                         onClick={() => handleDeleteTicket(ticket._id)}
                       >
-                        Cancel
+                        <Trash2 size={14} className="mr-1" />
                       </Button>
                     </div>
                   </div>

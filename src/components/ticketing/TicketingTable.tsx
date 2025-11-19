@@ -25,22 +25,22 @@ export const TicketingTable: React.FC<TicketingTableProps> = ({
   const columns: Column<TicketingRequest>[] = [
     ...(isAdmin
       ? [
-          {
-            key: 'user' as keyof TicketingRequest,
-            label: 'User',
-            render: (ticketing: TicketingRequest) => {
-              const user = typeof ticketing.user === 'object' ? ticketing.user : null;
-              return user ? (
-                <div>
-                  <div className="font-medium text-gray-900">{user.name}</div>
-                  <div className="text-sm text-gray-500">{user.email}</div>
-                </div>
-              ) : (
-                <span className="text-gray-400">-</span>
-              );
-            },
+        {
+          key: 'user' as keyof TicketingRequest,
+          label: 'User',
+          render: (ticketing: TicketingRequest) => {
+            const user = typeof ticketing.user === 'object' ? ticketing.user : null;
+            return user ? (
+              <div>
+                <div className="font-medium text-gray-900">{user.name}</div>
+                <div className="text-sm text-gray-500">{user.email}</div>
+              </div>
+            ) : (
+              <span className="text-gray-400">-</span>
+            );
           },
-        ]
+        },
+      ]
       : []),
     {
       key: 'event',
@@ -78,17 +78,17 @@ export const TicketingTable: React.FC<TicketingTableProps> = ({
             variant="secondary"
             size="sm"
             onClick={() => onEdit(ticketing)}
+            title="Edit"
           >
-            <Edit size={14} className="mr-1" />
-            Edit
+            <Edit size={14} />
           </Button>
           <Button
             variant="danger"
             size="sm"
             onClick={() => onDelete(ticketing)}
+            title="Delete"
           >
-            <Trash2 size={14} className="mr-1" />
-            Delete
+            <Trash2 size={14} />
           </Button>
         </div>
       ),

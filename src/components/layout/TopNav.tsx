@@ -4,6 +4,7 @@ import React from 'react';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/Button';
 import { LogOut, User } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 interface TopNavProps {
   onMenuToggle?: () => void;
@@ -11,10 +12,19 @@ interface TopNavProps {
 
 export const TopNav: React.FC<TopNavProps> = ({ onMenuToggle }) => {
   const { user, logout } = useAuth();
+  const router = useRouter();
 
   const handleLogout = async () => {
     await logout();
     window.location.href = '/login';
+  };
+
+  const handleProfileClick = () => {
+    if (user?.role === 'admin') {
+      router.push('/admin/profile');
+    } else {
+      router.push('/member/profile');
+    }
   };
 
   return (
@@ -45,13 +55,16 @@ export const TopNav: React.FC<TopNavProps> = ({ onMenuToggle }) => {
         </div>
 
         <div className="flex items-center space-x-4">
-          <div className="flex items-center space-x-2 text-gray-700">
+          <button
+            onClick={handleProfileClick}
+            className="flex items-center space-x-2 text-gray-700 hover:text-primary-600 transition-colors cursor-pointer"
+          >
             <User size={20} />
             <span className="hidden sm:inline font-medium">{user?.name || 'User'}</span>
             <span className="hidden sm:inline text-sm text-gray-500">
               ({user?.role || 'member'})
             </span>
-          </div>
+          </button>
           <Button variant="ghost" size="sm" onClick={handleLogout}>
             <LogOut size={16} className="mr-2" />
             <span className="hidden sm:inline">Logout</span>

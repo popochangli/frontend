@@ -7,7 +7,7 @@ import { TicketingRequest } from '@/lib/types/ticketing';
 import { Event } from '@/lib/types/event';
 import { LoadingSpinner } from '@/components/ui/LoadingSpinner';
 import { MetricCard } from '@/components/dashboard/MetricCard';
-import { Ticket, Calendar, Clock } from 'lucide-react';
+import { Ticket, Calendar } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/Button';
 
@@ -50,11 +50,11 @@ export default function MemberDashboard() {
   return (
     <div>
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Welcome back, {user?.name}!</h1>
+        <h1 className="text-3xl font-bold text-gray-900">Welcome back {user?.name}!</h1>
         <p className="text-gray-600 mt-2">Here's an overview of your ticketing activity.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <MetricCard
           title="My Bookings"
           value={recentTickets.length}
@@ -65,12 +65,6 @@ export default function MemberDashboard() {
           title="Total Tickets"
           value={totalTickets}
           icon={Calendar}
-          loading={loading}
-        />
-        <MetricCard
-          title="Recent Activity"
-          value={recentTickets.length > 0 ? 'Active' : 'None'}
-          icon={Clock}
           loading={loading}
         />
       </div>

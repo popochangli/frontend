@@ -73,7 +73,11 @@ export const EventForm: React.FC<EventFormProps> = ({
 
     setLoading(true);
     try {
-      await onSubmit(formData);
+      const submitData = {
+        ...formData,
+        posterPicture: formData.posterPicture || 'https://f.ptcdn.info/531/041/000/o548w5lpy8Cw4o11ob4-o.jpg'
+      };
+      await onSubmit(submitData);
     } finally {
       setLoading(false);
     }

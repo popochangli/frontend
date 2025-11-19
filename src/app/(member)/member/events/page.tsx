@@ -66,7 +66,12 @@ export default function MemberEventsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {events.map((event) => (
               <div key={event._id} className="flex flex-col h-full">
-                <EventCard event={event} />
+                <div
+                  className="cursor-pointer"
+                  onClick={() => router.push(`/member/events/${event._id}`)}
+                >
+                  <EventCard event={event} />
+                </div>
                 <div className="mt-2">
                   <Button
                     className="w-full"
